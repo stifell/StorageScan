@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -7,20 +10,22 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stifell.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stifell.MainController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="Файл">
                     <items>
                         <MenuItem fx:id="menuItemSelectFile" mnemonicParsing="false" text="Выбрать файл" />
-                  <MenuItem fx:id="menuItemExit" mnemonicParsing="false" text="Выход" />
+                        <MenuItem fx:id="menuItemExit" mnemonicParsing="false" text="Выход" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Настройки">
@@ -37,34 +42,86 @@
         </MenuBar>
     </top>
     <center>
-        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-            <tabs>
-                <Tab text="Статистика">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-                <Tab text="Громоздкие файлы">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-                <Tab text="Дубликаты">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-            </tabs>
-        </TabPane>
+        <VBox alignment="TOP_CENTER" prefHeight="458.0" prefWidth="800.0" spacing="5.0" BorderPane.alignment="TOP_CENTER">
+            <HBox spacing="15.0">
+                <HBox alignment="CENTER" spacing="10.0">
+                    <Label text="Выбор:" />
+                    <ComboBox fx:id="driveComboBox" prefWidth="150" />
+                    <Button fx:id="buttonAnalysis" text="Анализ" />
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+                </HBox>
+                <GridPane fx:id="diskInfoGrid" hgap="10" vgap="5">
+                    <Label text="Общий объём:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label fx:id="labelTotalSpace" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Занято:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Label fx:id="labelUsedSpace" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Свободно:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label fx:id="labelFreeSpace" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
+                </GridPane>
+            </HBox>
+
+            <TabPane prefHeight="425.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+                <tabs>
+                    <Tab text="Статистика">
+                        <content>
+                            <VBox spacing="10.0">
+                                <Label text="Здесь будет статистика..." />
+                                <padding>
+                                    <Insets left="10.0" top="10.0" />
+                                </padding>
+                            </VBox>
+                        </content>
+                    </Tab>
+                    <Tab text="Громоздкие файлы">
+                        <content>
+                            <VBox spacing="10.0">
+                                <Label text="Список самых больших файлов..." />
+                                <padding>
+                                    <Insets left="10.0" top="10.0" />
+                                </padding>
+                            </VBox>
+                        </content>
+                    </Tab>
+                    <Tab text="Дубликаты">
+                        <content>
+                            <VBox spacing="10.0">
+                                <Label text="Список дубликатов..." />
+                                <padding>
+                                    <Insets left="10.0" top="10.0" />
+                                </padding>
+                            </VBox>
+                        </content>
+                    </Tab>
+                </tabs>
+            </TabPane>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+        </VBox>
     </center>
     <bottom>
         <HBox prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: silver;" BorderPane.alignment="CENTER">
             <children>
                 <Label fx:id="statusLabel" text="Статус анализа:">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-                <Region HBox.hgrow="ALWAYS" />
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
                 <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="207.0" progress="0.0" />
             </children>
         </HBox>
